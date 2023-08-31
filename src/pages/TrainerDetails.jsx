@@ -14,7 +14,7 @@ export default function TrainerDetails() {
       setTrainer(result);
     };
     getAllTrainers();
-  }, []);
+  }, [id]);
 
   return (
     <>
