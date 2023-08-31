@@ -16,6 +16,7 @@ export default function TrainerCard({ trainer }) {
     <Center>
       <Box
         maxW={"270px"}
+        height={"100%"}
         w={"full"}
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"md"}
@@ -27,12 +28,14 @@ export default function TrainerCard({ trainer }) {
             <Avatar size={"xl"} src={trainer.profile} />
           </Flex>
 
-          <Box p={6}>
+          <Box p={{ base: 3, sm: 6 }}>
             <Stack spacing={0} align={"center"} mb={5}>
-              <Heading fontSize={"xl"} fontWeight={500} fontFamily={"body"}>
+              <Heading fontSize={"lg"} fontWeight={500} fontFamily={"body"}>
                 {trainer.fullName}
               </Heading>
-              <Text color={"gray.500"}>@{trainer.displayName}</Text>
+              <Text color={"gray.500"} wordBreak={"break-all"} fontSize={"sm"}>
+                @{trainer.displayName}
+              </Text>
             </Stack>
 
             <Stack direction={"row"} justify={"center"} spacing={6}>

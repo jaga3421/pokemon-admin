@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { getTrainers } from "../api/service";
+import { getTrainerInfo } from "../api/service";
 import { useParams } from "react-router-dom";
 import TrainerInformation from "../components/TrainerInformation";
 
@@ -10,8 +10,7 @@ export default function TrainerDetails() {
 
   useEffect(() => {
     const getAllTrainers = async () => {
-      const trainersList = await getTrainers();
-      const result = trainersList.find((trainer) => trainer.displayName === id);
+      const result = await getTrainerInfo(id);
       setTrainer(result);
     };
     getAllTrainers();

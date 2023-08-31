@@ -6,7 +6,7 @@ import AllTrainers from "./pages/AllTrainers";
 
 function App() {
   return (
-    <Box background={"gray.100"} h={"100vh"}>
+    <Box background={"gray.100"} minH={"100vh"}>
       <Router>
         <NavBar />
         <Routes>

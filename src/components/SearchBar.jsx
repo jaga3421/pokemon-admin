@@ -42,7 +42,7 @@ export const SearchBar = ({ searchAction }) => {
             }}
           >
             <AddIcon marginRight={{ base: 2, md: 4 }} />
-            Add New Trainer
+            New Trainer
           </Button>
         </InputRightAddon>
       </InputGroup>
