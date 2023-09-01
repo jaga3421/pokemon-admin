@@ -19,7 +19,6 @@ import {
 import { Link } from "react-router-dom";
 
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
-import { FaUserEdit, FaTrashAlt } from "react-icons/fa";
 import PokemonList from "./PokemonList";
 
 const TrainerInformation = ({ trainer }) => {
@@ -142,24 +141,8 @@ const TrainerInformation = ({ trainer }) => {
             </Text>
           </Box>
           <Box marginTop="5">
-            <Button
-              mx={1}
-              size={"sm"}
-              background="orange.200"
-              border={"1px solid "}
-              borderColor={"orange.300"}
-            >
-              <FaUserEdit />
-            </Button>
-
-            <Button
-              mx={1}
-              size={"sm"}
-              background="orange.200"
-              border={"1px solid "}
-              borderColor={"orange.300"}
-            >
-              <FaTrashAlt />
+            <Button mx={1} size={"xs"} variant={"link"}>
+              Edit Profile
             </Button>
           </Box>
         </Box>

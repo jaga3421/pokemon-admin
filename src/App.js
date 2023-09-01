@@ -3,17 +3,12 @@ import NavBar from "./components/NavBar";
 import TrainerDetails from "./pages/TrainerDetails";
 import { Box } from "@chakra-ui/react";
 import AllTrainers from "./pages/AllTrainers";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { TrainersContext } from "./TrainersContext";
 import { defaultTrainers } from "./api/defaultValues";
 
 function App() {
   const [trainers, setTrainers] = useState(defaultTrainers);
-  console.log(trainers);
-
-  useEffect(() => {
-    console.log(trainers);
-  }, []);
 
   return (
     <Box background={"gray.100"} minH={"100vh"}>

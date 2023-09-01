@@ -16,6 +16,7 @@ import { TrainersContext } from "../TrainersContext";
 import { useContext, useState } from "react";
 
 export default function TrainersList({ trainers }) {
+  // eslint-disable-next-line no-unused-vars
   const [ctxTrainer, setTrainers] = useContext(TrainersContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedTrainer, setSelectedTrainer] = useState({});
