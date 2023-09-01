@@ -5,15 +5,39 @@ import {
   Text,
   useColorModeValue,
   Container,
-  SimpleGrid,
+  Grid,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+  Flex,
 } from "@chakra-ui/react";
 
+import { Link } from "react-router-dom";
+
+import { MdOutlineKeyboardBackspace } from "react-icons/md";
+import { FaUserEdit, FaLink, FaTrashAlt } from "react-icons/fa";
+import PokemonList from "./PokemonList";
 const TrainerInformation = ({ trainer }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Container maxW={"1600px"} p="6">
-      <SimpleGrid
-        columns={{ base: 1, sm: 2, md: 3 }}
-        spacing={10}
+    <Container maxW={"1200px"} p="6">
+      <Box w={"100px"}>
+        <Link to="/">
+          <Flex alignItems={"center"}>
+            <MdOutlineKeyboardBackspace />
+            <Text as="span" ml={2} fontSize={"xs"}>
+              All Trainers
+            </Text>
+          </Flex>
+        </Link>
+      </Box>
+      <Grid
+        templateColumns={{ base: "1fr", md: "1fr 2fr" }}
+        gap={4}
         marginTop={{ base: "1", sm: "5" }}
         flexDirection={{ base: "column", sm: "row" }}
         justifyContent="space-between"
@@ -21,68 +45,138 @@ const TrainerInformation = ({ trainer }) => {
         <Box
           display="flex"
           flex="1"
-          marginRight="3"
           position="relative"
           alignItems="center"
+          flexDirection={"column"}
+          p={5}
+          background={useColorModeValue("white", "gray.900")}
+          borderRadius={"md"}
+          boxShadow={"sm"}
         >
-          <Box zIndex="2" marginLeft={{ base: "0", sm: "5%" }} marginTop="5%">
-            <Box textDecoration="none" _hover={{ textDecoration: "none" }}>
-              <Image
-                borderRadius="lg"
-                src={trainer.profile}
-                alt={trainer.fullName}
-                objectFit="contain"
-              />
-            </Box>
+          <Box textDecoration="none" _hover={{ textDecoration: "none" }}>
+            <Image
+              borderRadius="full"
+              boxSize={"200px"}
+              src={trainer.profile}
+              alt={trainer.fullName}
+              objectFit="cover"
+              onClick={onOpen}
+              cursor={"pointer"}
+            />
+            <Modal size={"2xl"} isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalCloseButton />
+                <ModalBody p={3} display={"flex"} justifyContent={"center"}>
+                  <Image
+                    w={"90vw"}
+                    src={trainer.profile}
+                    alt={trainer.fullName}
+                    objectFit={"contain"}
+                  />
+                </ModalBody>
+              </ModalContent>
+            </Modal>
+          </Box>
+
+          <Box
+            display="flex"
+            flex="1"
+            flexDirection="column"
+            marginTop={{ base: "3", sm: "0" }}
+          >
+            <Heading marginTop="1">
+              <Text textDecoration="none" _hover={{ textDecoration: "none" }}>
+                {trainer.fullName}
+              </Text>
+            </Heading>
+            <Text
+              as="p"
+              marginTop="2"
+              color={useColorModeValue("gray.700", "gray.200")}
+              fontSize="lg"
+            >
+              @{trainer.displayName}
+            </Text>{" "}
+            <Text
+              as="p"
+              marginTop="2"
+              color={useColorModeValue("gray.700", "gray.200")}
+              fontSize="sm"
+            >
+              {trainer.bio}
+            </Text>
+            <Text
+              as="p"
+              marginTop="2"
+              color={useColorModeValue("gray.700", "gray.200")}
+              fontSize="sm"
+            >
+              <b>Global Rank</b>: {trainer.rank}
+            </Text>
+            <Text
+              as="p"
+              marginTop="2"
+              color={useColorModeValue("gray.700", "gray.200")}
+              fontSize="sm"
+            >
+              <b>Member Since</b>: {trainer.joined}
+            </Text>
+            <Text
+              p={1}
+              as="p"
+              marginTop="2"
+              color={useColorModeValue("white", "gray.200")}
+              fontSize="sm"
+              background={
+                trainer.pokemons.length >= 6 ? "green.400" : "red.400"
+              }
+            >
+              <b>Battle Eligibility</b>:{" "}
+              {trainer.pokemons.length >= 6 ? "Eligible" : "Not Eligible"}
+            </Text>
+          </Box>
+          <Box marginTop="5">
+            <Button
+              mx={1}
+              size={"sm"}
+              background="orange.200"
+              border={"1px solid "}
+              borderColor={"orange.300"}
+            >
+              <FaUserEdit />
+            </Button>
+            <Button
+              mx={1}
+              size={"sm"}
+              background="orange.200"
+              border={"1px solid "}
+              borderColor={"orange.300"}
+            >
+              <FaLink />
+            </Button>
+            <Button
+              mx={1}
+              size={"sm"}
+              background="orange.200"
+              border={"1px solid "}
+              borderColor={"orange.300"}
+            >
+              <FaTrashAlt />
+            </Button>
           </Box>
         </Box>
 
         <Box
-          display="flex"
-          flex="1"
-          flexDirection="column"
+          p={5}
+          background={useColorModeValue("white", "gray.900")}
+          borderRadius={"md"}
+          boxShadow={"sm"}
           marginTop={{ base: "3", sm: "0" }}
         >
-          <Heading marginTop="1">
-            <Text textDecoration="none" _hover={{ textDecoration: "none" }}>
-              {trainer.fullName}
-            </Text>
-          </Heading>
-          <Text
-            as="p"
-            marginTop="2"
-            color={useColorModeValue("gray.700", "gray.200")}
-            fontSize="lg"
-          >
-            @{trainer.displayName}
-          </Text>{" "}
-          <Text
-            as="p"
-            marginTop="2"
-            color={useColorModeValue("gray.700", "gray.200")}
-            fontSize="sm"
-          >
-            {trainer.bio}
-          </Text>
-          <Text
-            as="p"
-            marginTop="2"
-            color={useColorModeValue("gray.700", "gray.200")}
-            fontSize="sm"
-          >
-            Global Rank: {trainer.rank}
-          </Text>
+          <PokemonList pokemons={trainer.pokemons} />
         </Box>
-
-        <Box
-          display="flex"
-          flex="1"
-          flexDirection="column"
-          marginTop={{ base: "3", sm: "0" }}
-        >
-          <Text as="b">Available Pokemons</Text>
-        </Box>
-      </SimpleGrid>
+      </Grid>
     </Container>
   );
 };

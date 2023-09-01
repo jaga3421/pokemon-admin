@@ -32,7 +32,7 @@ export default function AllTrainers() {
     <>
       <Box padding={5} maxW={"1400px"} margin={"0 auto"}>
         <Text as="h1" fontSize="2xl" fontWeight="bold" mb={5}>
-          Trainer List
+          All Trainers
         </Text>
 
         <SearchBar searchAction={searchAction} />

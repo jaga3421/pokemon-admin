@@ -11,8 +11,8 @@ export default function TrainersList({ trainers }) {
         </Box>
       )}
       <SimpleGrid
-        columns={{ base: 2, sm: 3, md: 4, lg: 6 }}
-        spacing={{ base: 2, sm: 4, md: 4 }}
+        columns={{ base: 2, md: 4, lg: 6 }}
+        spacing={{ base: 2, md: 4 }}
       >
         {trainers.map((trainer) => {
           return <TrainerCard trainer={trainer} key={trainer.id} />;
