@@ -3,10 +3,11 @@ import { useState, useContext } from "react";
 import { SearchBar } from "../components/SearchBar";
 import { Box, Text } from "@chakra-ui/react";
 import TrainersList from "../components/TrainersList";
-import { trainersContext } from "../trainersContext";
+import { TrainersContext } from "../TrainersContext";
 
 export default function AllTrainers() {
-  const trainers = useContext(trainersContext);
+  const [trainers] = useContext(TrainersContext);
+  console.log(trainers);
   const [filteredTrainers, setFilteredTrainers] = useState([]);
 
   useEffect(() => {

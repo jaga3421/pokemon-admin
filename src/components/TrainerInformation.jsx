@@ -21,6 +21,7 @@ import { Link } from "react-router-dom";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { FaUserEdit, FaTrashAlt } from "react-icons/fa";
 import PokemonList from "./PokemonList";
+
 const TrainerInformation = ({ trainer }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (

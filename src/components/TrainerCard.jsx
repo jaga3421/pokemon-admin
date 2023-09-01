@@ -7,11 +7,16 @@ import {
   Text,
   Stack,
   useColorModeValue,
+  Button,
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
+import { AiOutlineDelete } from "react-icons/ai";
 
-export default function TrainerCard({ trainer }) {
+export default function TrainerCard({ trainer, deleteTrainer }) {
+  const showWarning = () => {
+    deleteTrainer(trainer);
+  };
   return (
     <Center>
       <Box
@@ -24,7 +29,27 @@ export default function TrainerCard({ trainer }) {
         overflow={"hidden"}
         border={"1px solid"}
         borderColor={trainer.pokemons?.length < 3 ? "transparent" : "green.400"}
+        position={"relative"}
+        _hover={{
+          "&>button": {
+            opacity: 1,
+          },
+        }}
       >
+        <Button
+          variant="ghost"
+          position={"absolute"}
+          top={0}
+          right={0}
+          p={0}
+          _hover={{ bg: "transparent" }}
+          transition={"all .3s ease"}
+          opacity={{ base: 1, md: 0 }}
+          onClick={showWarning}
+        >
+          <AiOutlineDelete />
+        </Button>
+
         <Link to={`/trainer/${trainer.displayName}`}>
           <Flex justify={"center"} mt={2}>
             <Avatar size={"xl"} src={trainer.profile} />

@@ -3,25 +3,21 @@ import NavBar from "./components/NavBar";
 import TrainerDetails from "./pages/TrainerDetails";
 import { Box } from "@chakra-ui/react";
 import AllTrainers from "./pages/AllTrainers";
-import { useEffect, useState } from "react";
-import { trainersContext } from "./trainersContext";
-import { defaultValues } from "./api/defaultValues";
+import { useState, useEffect } from "react";
+import { TrainersContext } from "./TrainersContext";
+import { defaultTrainers } from "./api/defaultValues";
 
 function App() {
-  const [trainers, setTrainers] = useState([]);
-
-  const modifyTrainers = (val) => {
-    setTrainers(val);
-  };
+  const [trainers, setTrainers] = useState(defaultTrainers);
+  console.log(trainers);
 
   useEffect(() => {
-    // Setting few default values to start with
-    modifyTrainers(defaultValues);
+    console.log(trainers);
   }, []);
 
   return (
     <Box background={"gray.100"} minH={"100vh"}>
-      <trainersContext.Provider value={trainers}>
+      <TrainersContext.Provider value={[trainers, setTrainers]}>
         <Router>
           <NavBar />
           <Routes>
@@ -29,7 +25,7 @@ function App() {
             <Route path="/trainer/:id" element={<TrainerDetails />} />
           </Routes>
         </Router>
-      </trainersContext.Provider>
+      </TrainersContext.Provider>
     </Box>
   );
 }

@@ -8,9 +8,21 @@ import {
   Button,
   Stack,
   useColorModeValue,
+  Tooltip,
 } from "@chakra-ui/react";
+import { useContext } from "react";
+import { TrainersContext } from "../TrainersContext";
 
 export default function WithSubnavigation() {
+  const [trainers] = useContext(TrainersContext);
+  const eligibleTrainers = trainers.filter((trainer) => {
+    return trainer.pokemons?.length >= 3;
+  });
+  const battleReady = eligibleTrainers.length >= 8;
+  const toolTipLabel = battleReady
+    ? `${eligibleTrainers.length} are available for battle`
+    : "Atleast 8 Trainer with minimum of 3 Pokemon are required to start a tournament";
+
   return (
     <Box>
       <Flex
@@ -40,19 +52,22 @@ export default function WithSubnavigation() {
           direction={"row"}
           spacing={6}
         >
-          <Button
-            as={"a"}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"orange.400"}
-            href={"#"}
-            _hover={{
-              bg: "orange.300",
-            }}
-          >
-            Start Tournament
-          </Button>
+          <Tooltip label={toolTipLabel}>
+            <Button
+              as={"a"}
+              fontSize={"sm"}
+              fontWeight={600}
+              color={"white"}
+              bg={battleReady ? "orange.400" : "gray.300"}
+              href={"#"}
+              _hover={{
+                bg: battleReady ? "orange.300" : "",
+              }}
+              cursor={battleReady ? "pointer" : "not-allowed"}
+            >
+              Start Tournament ({eligibleTrainers.length})
+            </Button>
+          </Tooltip>
         </Stack>
       </Flex>
     </Box>

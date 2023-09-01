@@ -1,8 +1,38 @@
-import React from "react";
-import { SimpleGrid, Box } from "@chakra-ui/react";
+import {
+  SimpleGrid,
+  Box,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  Button,
+  useDisclosure,
+  Text,
+} from "@chakra-ui/react";
 import TrainerCard from "./TrainerCard";
+import { TrainersContext } from "../TrainersContext";
+import { useContext, useState } from "react";
 
 export default function TrainersList({ trainers }) {
+  const [ctxTrainer, setTrainers] = useContext(TrainersContext);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedTrainer, setSelectedTrainer] = useState({});
+
+  const deleteTrainer = (trainer) => {
+    setSelectedTrainer(trainer);
+    onOpen();
+  };
+
+  const confirmDelete = () => {
+    const item = trainers.filter(
+      (trainer) => trainer.displayName !== selectedTrainer.displayName
+    );
+    onClose();
+    setTrainers(item);
+  };
+
   return (
     <>
       {trainers?.length === 0 && (
@@ -15,9 +45,41 @@ export default function TrainersList({ trainers }) {
         spacing={{ base: 2, md: 4 }}
       >
         {trainers?.map((trainer) => {
-          return <TrainerCard trainer={trainer} key={trainer.id} />;
+          return (
+            <TrainerCard
+              trainer={trainer}
+              deleteTrainer={deleteTrainer}
+              key={trainer.id}
+            />
+          );
         })}
       </SimpleGrid>
+
+      {/* Confirmation Modal */}
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Delete @{selectedTrainer.displayName}</ModalHeader>
+          <ModalBody>
+            <Text mb={2}>
+              Are you sure you want to delete {selectedTrainer.fullName}?
+            </Text>
+            <Text fontSize={"sm"}>
+              This action is irreversible. All the pokemons associated with this
+              trainer will be deleted.
+            </Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="orange" mr={3} onClick={confirmDelete}>
+              Yes, Delete
+            </Button>
+            <Button variant="ghost" onClick={onClose}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

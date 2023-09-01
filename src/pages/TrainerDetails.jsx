@@ -3,10 +3,10 @@ import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import TrainerInformation from "../components/TrainerInformation";
 import { Flex } from "@chakra-ui/react";
-import { trainersContext } from "../trainersContext";
+import { TrainersContext } from "../TrainersContext";
 
 export default function TrainerDetails() {
-  const trainers = useContext(trainersContext);
+  const [trainers] = useContext(TrainersContext);
   const { id } = useParams();
   const current = trainers.find((trainer) => trainer.displayName === id);
   console.log(trainers);

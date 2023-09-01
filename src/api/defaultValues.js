@@ -1,4 +1,4 @@
-export const defaultValues = [
+export const defaultTrainers = [
   {
     id: "1",
     displayName: "queenPikachu",
@@ -123,7 +123,7 @@ export const defaultValues = [
     rank: "5",
     profile:
       "https://pyxis.nymag.com/v1/imgs/079/792/3ed0d94be0a9bd3d023f00532889bab152-30-chandler-bing.rsquare.w330.jpg",
-    bio: "I am not good advice, can I interest you with a sarcastic comment?",
+    bio: "I am not good at advice, can I interest in with a sarcastic comment?",
     joined: "2012",
     pokemons: [
       {
@@ -157,5 +157,26 @@ export const defaultValues = [
     bio: "Thank you Linus !!!",
     joined: "2019",
     pokemons: [],
+  },
+];
+
+export const defaultPokemon = [
+  {
+    id: "4",
+    name: "Charmander",
+    abilities: ["Blaze", "Solar Power"],
+    image: "https://img.pokemondb.net/artwork/charmander.jpg",
+  },
+  {
+    id: "5",
+    name: "Charmeleon",
+    abilities: ["Blaze", "Solar Power"],
+    image: "https://img.pokemondb.net/artwork/charmeleon.jpg",
+  },
+  {
+    id: "1",
+    name: "Pikachu",
+    abilities: ["Static", "Lightning Rod"],
+    image: "https://img.pokemondb.net/artwork/pikachu.jpg",
   },
 ];
