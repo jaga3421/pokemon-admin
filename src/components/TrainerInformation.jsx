@@ -19,7 +19,7 @@ import {
 import { Link } from "react-router-dom";
 
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
-import { FaUserEdit, FaLink, FaTrashAlt } from "react-icons/fa";
+import { FaUserEdit, FaTrashAlt } from "react-icons/fa";
 import PokemonList from "./PokemonList";
 const TrainerInformation = ({ trainer }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -124,16 +124,20 @@ const TrainerInformation = ({ trainer }) => {
             </Text>
             <Text
               p={1}
-              as="p"
+              as="b"
               marginTop="2"
               color={useColorModeValue("white", "gray.200")}
               fontSize="sm"
+              fontStyle={"bold"}
+              borderRadius={"md"}
+              align={"center"}
               background={
-                trainer.pokemons.length >= 6 ? "green.400" : "red.400"
+                trainer.pokemons.length >= 3 ? "green.400" : "red.400"
               }
             >
-              <b>Battle Eligibility</b>:{" "}
-              {trainer.pokemons.length >= 6 ? "Eligible" : "Not Eligible"}
+              {trainer.pokemons.length >= 3
+                ? "Eligible for Battle"
+                : "Not Eligible for Battle"}
             </Text>
           </Box>
           <Box marginTop="5">
@@ -146,15 +150,7 @@ const TrainerInformation = ({ trainer }) => {
             >
               <FaUserEdit />
             </Button>
-            <Button
-              mx={1}
-              size={"sm"}
-              background="orange.200"
-              border={"1px solid "}
-              borderColor={"orange.300"}
-            >
-              <FaLink />
-            </Button>
+
             <Button
               mx={1}
               size={"sm"}

@@ -1,21 +1,20 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import { getTrainerInfo } from "../api/service";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import TrainerInformation from "../components/TrainerInformation";
 import { Flex } from "@chakra-ui/react";
+import { trainersContext } from "../trainersContext";
 
 export default function TrainerDetails() {
+  const trainers = useContext(trainersContext);
   const { id } = useParams();
-  const [trainer, setTrainer] = useState(null);
+  const current = trainers.find((trainer) => trainer.displayName === id);
+  console.log(trainers);
+  const [trainer, setTrainer] = useState(current);
 
   useEffect(() => {
-    const getAllTrainers = async () => {
-      const result = await getTrainerInfo(id);
-      setTrainer(result);
-    };
-    getAllTrainers();
-  }, [id]);
+    setTrainer(current);
+  }, [current]);
 
   return (
     <>

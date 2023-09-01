@@ -23,7 +23,7 @@ export default function TrainerCard({ trainer }) {
         rounded={"md"}
         overflow={"hidden"}
         border={"1px solid"}
-        borderColor={trainer.pokemons.length < 3 ? "transparent" : "green.400"}
+        borderColor={trainer.pokemons?.length < 3 ? "transparent" : "green.400"}
       >
         <Link to={`/trainer/${trainer.displayName}`}>
           <Flex justify={"center"} mt={2}>
@@ -43,10 +43,10 @@ export default function TrainerCard({ trainer }) {
             <Stack direction={"row"} justify={"center"} spacing={6}>
               <Stack spacing={0} align={"center"}>
                 <Text fontSize={"xs"}>
-                  {trainer.pokemons.length === 0
+                  {trainer.pokemons?.length === 0
                     ? "No Pokemons"
-                    : `${trainer.pokemons.length} Pokemon${
-                        trainer.pokemons.length > 1 ? "s" : ""
+                    : `${trainer.pokemons?.length} Pokemon${
+                        trainer.pokemons?.length > 1 ? "s" : ""
                       }`}
                 </Text>
               </Stack>

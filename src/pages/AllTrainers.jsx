@@ -1,28 +1,23 @@
-import React from "react";
-import { getTrainers } from "../api/service";
-import { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useState, useContext } from "react";
 import { SearchBar } from "../components/SearchBar";
 import { Box, Text } from "@chakra-ui/react";
 import TrainersList from "../components/TrainersList";
+import { trainersContext } from "../trainersContext";
 
 export default function AllTrainers() {
-  const [trainers, setTrainers] = useState([]);
+  const trainers = useContext(trainersContext);
   const [filteredTrainers, setFilteredTrainers] = useState([]);
 
   useEffect(() => {
-    const getAllTrainers = async () => {
-      const trainersList = await getTrainers();
-      setTrainers(trainersList);
-      setFilteredTrainers(trainersList);
-    };
-    getAllTrainers();
-  }, []);
+    setFilteredTrainers([...trainers]);
+  }, [trainers]);
 
   const searchAction = (searchValue) => {
     const result = trainers.filter((trainer) => {
       return (
-        trainer.fullName.toLowerCase().includes(searchValue.toLowerCase()) ||
-        trainer.displayName.toLowerCase().includes(searchValue.toLowerCase())
+        trainer.fullName?.toLowerCase().includes(searchValue.toLowerCase()) ||
+        trainer.displayName?.toLowerCase().includes(searchValue.toLowerCase())
       );
     });
     setFilteredTrainers(result);
