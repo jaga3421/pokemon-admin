@@ -121,7 +121,7 @@ export default function EditUserForm({ trainer }) {
                 )
               }
             >
-              Update Trainer details
+              Update Trainer
             </Button>
           </DrawerFooter>
         </DrawerContent>

@@ -9,6 +9,7 @@ import {
   ModalHeader,
   ModalBody,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { useState, useContext } from "react";
 import { TrainersContext } from "../TrainersContext";
@@ -17,6 +18,7 @@ import PokemonDetail from "./PokemonDetail";
 import AddPokemonForm from "./forms/AddPokemonForm";
 
 export default function PokemonList({ pokemons, trainerId }) {
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [todelete, setTodelete] = useState(null);
   const [trainers, setTrainers] = useContext(TrainersContext);
@@ -38,7 +40,15 @@ export default function PokemonList({ pokemons, trainerId }) {
       }
       return trainer;
     });
+
     setTrainers(newTrainers);
+    toast({
+      title: "Pokemon Deleted.",
+      description: "The pokemon has been deleted.",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
   };
   return (
     <>

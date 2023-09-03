@@ -1,5 +1,15 @@
-// import axios from "axios";
+import axios from "axios";
 
+const API_URL = "https://pokeapi.co/api/v2/pokemon/";
+
+const searchPokemon = async (term) => {
+  try {
+    const response = await axios.get(`${API_URL}${term}`);
+    return response.data;
+  } catch (error) {
+    return {};
+  }
+};
 const checkUniqueUserName = (displayName, trainers) => {
   const isUnique = trainers.every(
     (trainer) => trainer.displayName.toLowerCase() !== displayName.toLowerCase()
@@ -7,21 +17,17 @@ const checkUniqueUserName = (displayName, trainers) => {
   return isUnique;
 };
 
-const addPokemonToUser = (pokemon, users, displayName) => {
-  const newPokemon = {
-    name: pokemon.name,
-    id: pokemon.id,
-  };
-  const thatuser = users.find((user) => user.displayName === displayName);
+const addPokemonToUser = (newPokemon, users, id) => {
+  const thatuser = users.find((user) => user.id === id);
   thatuser.pokemons.push(newPokemon);
 
   return users.map((user) => {
-    if (user.displayName === displayName) {
+    if (user.displayName === id) {
       return thatuser;
     }
     return user;
   });
 };
 
-export { checkUniqueUserName, addPokemonToUser };
+export { checkUniqueUserName, addPokemonToUser, searchPokemon };
 // get pikachu details

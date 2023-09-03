@@ -11,26 +11,61 @@ import {
   InputGroup,
   InputRightElement,
   useDisclosure,
+  Image,
+  Box,
+  useToast,
 } from "@chakra-ui/react";
 
 import { FaPlus, FaSearch } from "react-icons/fa";
 import AddPokemonHelpText from "../helpText/AddPokemonHelpText";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { TrainersContext } from "../../TrainersContext";
-import { addPokemonToUser } from "../../api/service";
+import { addPokemonToUser, searchPokemon } from "../../api/service";
 
 export default function AddPokemonForm({ trainerId }) {
-  const [trainers, setTrainers] = useContext(TrainersContext);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
-  const searchPokemon = () => {
-    console.log("Search Pokemon");
+  const [trainers, setTrainers] = useContext(TrainersContext);
+  const [search, setSearch] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedPokemon, setSelectedPokemon] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const lookUp = async () => {
+    setIsLoading(true);
+    const response = await searchPokemon(search);
+    if (response.id) {
+      setSelectedPokemon(response);
+      setIsLoading(false);
+      setIsError(false);
+      console.log(response);
+    } else {
+      setIsLoading(false);
+      setIsError(true);
+    }
   };
 
   const addToUser = (pokemon, trainerId) => {
-    console.log("Add to User");
+    const pokemonObj = {
+      id: Math.floor(Math.random() * 1000),
+      name: pokemon.name,
+      image: pokemon.sprites?.other["official-artwork"].front_default,
+      abilities: pokemon.abilities?.map((ability) => ability.ability.name),
+    };
 
-    setTrainers(addPokemonToUser(pokemon, trainers, trainerId));
+    setTrainers(addPokemonToUser(pokemonObj, trainers, trainerId));
+
+    toast({
+      title: "Pokemon Added.",
+      description: `${pokemon.name} has been added to Trainer's collection.`,
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
+    setIsError(false);
+    setIsLoading(false);
+    setSearch("");
   };
 
   return (
@@ -45,18 +80,67 @@ export default function AddPokemonForm({ trainerId }) {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader onClick={addToUser}>Add New Pokemon</DrawerHeader>
+          <DrawerHeader>Add New Pokemon</DrawerHeader>
 
           <DrawerBody>
-            <AddPokemonHelpText />
-            <InputGroup size="md">
-              <Input placeholder="Search Pokemon" variant={"flushed"} />
-              <InputRightElement width="4.5rem">
-                <Button size="sm" onClick={searchPokemon}>
-                  <FaSearch color="orange" />
-                </Button>
-              </InputRightElement>
-            </InputGroup>
+            <>
+              <AddPokemonHelpText />
+              <InputGroup size="md">
+                <Input
+                  placeholder="Search Pokemon"
+                  variant={"flushed"}
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                <InputRightElement width="4.5rem">
+                  <Button size="sm" onClick={lookUp}>
+                    <FaSearch color="orange" />
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+
+              {/* Loading screen */}
+              {isLoading && (
+                <Text as="p" fontSize="sm" mt={5}>
+                  Loading...
+                </Text>
+              )}
+
+              {/* Error screen */}
+              {isError && (
+                <Text as="p" fontSize="sm" mt={5}>
+                  Pokemon not found. Please try again.
+                </Text>
+              )}
+
+              {/* Pokemon Found */}
+              {selectedPokemon.id && (
+                <Box boxShadow={"md"} borderRadius={5} mt={5} p={3}>
+                  <Text as="p" fontSize="sm" mt={5} align={"center"}>
+                    {selectedPokemon.name} found!
+                  </Text>
+                  <Image
+                    src={
+                      selectedPokemon.sprites?.other["official-artwork"]
+                        .front_default
+                    }
+                    alt={selectedPokemon.name}
+                    boxSize={100}
+                    margin={"0 auto"}
+                    borderRadius={"md"}
+                  />
+                  <Button
+                    m={"5px auto"}
+                    display={"block"}
+                    size={"sm"}
+                    colorScheme="orange"
+                    onClick={() => addToUser(selectedPokemon, trainerId)}
+                  >
+                    Add Pokemon
+                  </Button>
+                </Box>
+              )}
+            </>
           </DrawerBody>
         </DrawerContent>
       </Drawer>

@@ -80,7 +80,7 @@ export const defaultTrainers = [
 
   {
     id: "3",
-    displayName: "rockyWhooper",
+    displayName: "simbaRocks",
     fullName: "Katie Yamashita",
     rank: "3",
     profile:

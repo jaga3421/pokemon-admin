@@ -13,6 +13,7 @@ import {
   FormErrorMessage,
   FormHelperText,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 
 import { useState, useContext } from "react";
@@ -22,6 +23,7 @@ import { checkUniqueUserName } from "../../api/service";
 import AddUserHelpText from "../helpText/AddUserHelpText";
 
 export default function NewUserForm({ isOpen, onOpen, onClose }) {
+  const toast = useToast();
   const [trainers, setTrainers] = useContext(TrainersContext);
   const [isError, setIsError] = useState(false);
   const [username, setUsername] = useState("");
@@ -40,7 +42,16 @@ export default function NewUserForm({ isOpen, onOpen, onClose }) {
       bio: bio,
       joined: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
     };
+
     const newTraines = [...trainers, newTrainer];
+
+    toast({
+      title: "Trainer Added.",
+      description: `${username} has been added to Trainer's collection.`,
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
     setTrainers(newTraines);
     onClose();
     reset();
