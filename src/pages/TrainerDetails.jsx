@@ -9,7 +9,6 @@ export default function TrainerDetails() {
   const [trainers] = useContext(TrainersContext);
   const { id } = useParams();
   const current = trainers.find((trainer) => trainer.displayName === id);
-  console.log(trainers);
   const [trainer, setTrainer] = useState(current);
 
   useEffect(() => {

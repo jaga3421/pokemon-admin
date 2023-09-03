@@ -14,6 +14,7 @@ import {
   useDisclosure,
   Button,
   Flex,
+  Avatar,
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
@@ -53,31 +54,36 @@ const TrainerInformation = ({ trainer }) => {
           borderRadius={"md"}
           boxShadow={"sm"}
         >
-          <Box textDecoration="none" _hover={{ textDecoration: "none" }}>
-            <Image
-              borderRadius="full"
-              boxSize={"200px"}
-              src={trainer.profile}
-              alt={trainer.fullName}
-              objectFit="cover"
-              onClick={onOpen}
-              cursor={"pointer"}
-            />
-            <Modal size={"2xl"} isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalCloseButton />
-                <ModalBody p={3} display={"flex"} justifyContent={"center"}>
-                  <Image
-                    w={"90vw"}
-                    src={trainer.profile}
-                    alt={trainer.fullName}
-                    objectFit={"contain"}
-                  />
-                </ModalBody>
-              </ModalContent>
-            </Modal>
-          </Box>
+          {trainer.profile ? (
+            <>
+              <Image
+                borderRadius="full"
+                boxSize={"200px"}
+                src={trainer.profile}
+                alt={trainer.fullName}
+                objectFit="cover"
+                onClick={onOpen}
+                cursor={"pointer"}
+              />
+              <Modal size={"2xl"} isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalCloseButton />
+                  <ModalBody p={3} display={"flex"} justifyContent={"center"}>
+                    <Image
+                      w={"90vw"}
+                      src={trainer.profile}
+                      alt={trainer.fullName}
+                      objectFit={"contain"}
+                    />
+                  </ModalBody>
+                </ModalContent>
+              </Modal>
+            </>
+          ) : (
+            <Avatar src={trainer.profile} size={"2xl"} />
+          )}
+          <Box textDecoration="none" _hover={{ textDecoration: "none" }}></Box>
 
           <Box
             display="flex"
@@ -154,7 +160,7 @@ const TrainerInformation = ({ trainer }) => {
           boxShadow={"sm"}
           marginTop={{ base: "3", sm: "0" }}
         >
-          <PokemonList pokemons={trainer.pokemons} />
+          <PokemonList pokemons={trainer.pokemons} trainerId={trainer.id} />
         </Box>
       </Grid>
     </Container>

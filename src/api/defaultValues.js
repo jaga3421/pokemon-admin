@@ -123,7 +123,7 @@ export const defaultTrainers = [
     rank: "5",
     profile:
       "https://pyxis.nymag.com/v1/imgs/079/792/3ed0d94be0a9bd3d023f00532889bab152-30-chandler-bing.rsquare.w330.jpg",
-    bio: "I am not good at advice, can I interest in with a sarcastic comment?",
+    bio: "I am not good at advice, can I interest you with a sarcastic comment?",
     joined: "2012",
     pokemons: [
       {

@@ -7,7 +7,6 @@ import { TrainersContext } from "../TrainersContext";
 
 export default function AllTrainers() {
   const [trainers] = useContext(TrainersContext);
-  console.log(trainers);
   const [filteredTrainers, setFilteredTrainers] = useState([]);
 
   useEffect(() => {

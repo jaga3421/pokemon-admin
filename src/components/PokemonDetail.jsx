@@ -1,7 +1,9 @@
-import { SimpleGrid, Box, Text, Image, Tag } from "@chakra-ui/react";
-import React from "react";
+import { SimpleGrid, Box, Text, Image, Tag, Button } from "@chakra-ui/react";
+import { AiOutlineDelete } from "react-icons/ai";
 
-export default function PokemonDetail({ pokemons }) {
+export default function PokemonDetail({ pokemons, deletePokemon }) {
+  const showWarning = (id) => deletePokemon(id);
+
   return (
     <SimpleGrid
       mt={4}
@@ -9,7 +11,30 @@ export default function PokemonDetail({ pokemons }) {
       spacing={{ base: 2, md: 4 }}
     >
       {pokemons?.map((pokemon) => (
-        <Box p={3} boxShadow={"md"} key={pokemon.id}>
+        <Box
+          p={3}
+          boxShadow={"md"}
+          key={pokemon.id}
+          position={"relative"}
+          _hover={{
+            "&>button": {
+              opacity: 1,
+            },
+          }}
+        >
+          <Button
+            variant="ghost"
+            position={"absolute"}
+            top={0}
+            right={0}
+            p={0}
+            _hover={{ bg: "transparent" }}
+            transition={"all .3s ease"}
+            opacity={{ base: 1, md: 0 }}
+            onClick={() => showWarning(pokemon.id)}
+          >
+            <AiOutlineDelete />
+          </Button>
           <Image
             boxSize={100}
             src={pokemon.image}
