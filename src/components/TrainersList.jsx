@@ -10,6 +10,7 @@ import {
   Button,
   useDisclosure,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import TrainerCard from "./TrainerCard";
 import { TrainersContext } from "../TrainersContext";
@@ -17,6 +18,7 @@ import { useContext, useState } from "react";
 
 export default function TrainersList({ trainers }) {
   // eslint-disable-next-line no-unused-vars
+  const toast = useToast();
   const [ctxTrainer, setTrainers] = useContext(TrainersContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedTrainer, setSelectedTrainer] = useState({});
@@ -30,6 +32,14 @@ export default function TrainersList({ trainers }) {
     const item = trainers.filter(
       (trainer) => trainer.displayName !== selectedTrainer.displayName
     );
+
+    toast({
+      title: `${selectedTrainer.displayName}`,
+      description: `${selectedTrainer.fullName} has been deleted.`,
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
     onClose();
     setTrainers(item);
   };
