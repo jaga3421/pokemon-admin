@@ -6,3 +6,6 @@ Admin application to manage Pokemon trainers and tournaments
 yarn install
 yarn start
 ```
+
+## Integration with Netlify
+Simply Open the Playground and push to main. This will auto deploy to netlify. 
