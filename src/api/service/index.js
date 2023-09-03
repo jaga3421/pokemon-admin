@@ -4,7 +4,7 @@ const API_URL = "https://pokeapi.co/api/v2/pokemon/";
 
 const searchPokemon = async (term) => {
   try {
-    const response = await axios.get(`${API_URL}${term}`);
+    const response = await axios.get(`${API_URL}${term.trim().toLowerCase()}`);
     return response.data;
   } catch (error) {
     return {};

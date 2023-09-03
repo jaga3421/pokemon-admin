@@ -65,6 +65,7 @@ export default function AddPokemonForm({ trainerId }) {
     });
     setIsError(false);
     setIsLoading(false);
+    setSelectedPokemon({});
     setSearch("");
   };
 
@@ -91,6 +92,7 @@ export default function AddPokemonForm({ trainerId }) {
                   variant={"flushed"}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
+                  autoFocus
                 />
                 <InputRightElement width="4.5rem">
                   <Button size="sm" onClick={lookUp}>

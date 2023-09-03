@@ -9,11 +9,15 @@ import {
   Stack,
   useColorModeValue,
   Tooltip,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { TrainersContext } from "../TrainersContext";
+import Tournament from "./Tournament";
 
 export default function WithSubnavigation() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [showBox, setShowBox] = useState(false);
   const [trainers] = useContext(TrainersContext);
   const eligibleTrainers = trainers.filter((trainer) => {
     return trainer.pokemons?.length >= 3;
@@ -22,6 +26,13 @@ export default function WithSubnavigation() {
   const toolTipLabel = battleReady
     ? `${eligibleTrainers.length} are available for battle`
     : "Atleast 8 Trainer with minimum of 3 Pokemon are required to start a tournament";
+
+  const startBattle = () => {
+    if (trainers.length >= 8) {
+      setShowBox(true);
+      onOpen();
+    }
+  };
 
   return (
     <Box>
@@ -64,12 +75,21 @@ export default function WithSubnavigation() {
                 bg: battleReady ? "orange.300" : "",
               }}
               cursor={battleReady ? "pointer" : "not-allowed"}
+              onClick={startBattle}
             >
               Start Tournament ({eligibleTrainers.length})
             </Button>
           </Tooltip>
         </Stack>
       </Flex>
+
+      {showBox && (
+        <Tournament
+          isOpen={isOpen}
+          onClose={onClose}
+          trainers={eligibleTrainers}
+        />
+      )}
     </Box>
   );
 }
