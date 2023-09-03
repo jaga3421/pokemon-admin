@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 
 const checkUniqueUserName = (displayName, trainers) => {
   const isUnique = trainers.every(

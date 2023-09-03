@@ -13,8 +13,6 @@ import {
   FormErrorMessage,
   FormHelperText,
   Textarea,
-  Text,
-  Box,
 } from "@chakra-ui/react";
 
 import { useState, useContext } from "react";
