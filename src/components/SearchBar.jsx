@@ -5,10 +5,13 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightAddon,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Search2Icon, AddIcon } from "@chakra-ui/icons";
+import NewUserForm from "./forms/NewUserForm";
 
 export const SearchBar = ({ searchAction }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex
       boxShadow={"md"}
@@ -40,12 +43,15 @@ export const SearchBar = ({ searchAction }) => {
             _hover={{
               bg: "orange.300",
             }}
+            onClick={onOpen}
           >
             <AddIcon marginRight={{ base: 2, md: 4 }} />
             New Trainer
           </Button>
         </InputRightAddon>
       </InputGroup>
+
+      <NewUserForm isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </Flex>
   );
 };
