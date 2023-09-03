@@ -7,5 +7,21 @@ const checkUniqueUserName = (displayName, trainers) => {
   return isUnique;
 };
 
-export { checkUniqueUserName };
+const addPokemonToUser = (pokemon, users, displayName) => {
+  const newPokemon = {
+    name: pokemon.name,
+    id: pokemon.id,
+  };
+  const thatuser = users.find((user) => user.displayName === displayName);
+  thatuser.pokemons.push(newPokemon);
+
+  return users.map((user) => {
+    if (user.displayName === displayName) {
+      return thatuser;
+    }
+    return user;
+  });
+};
+
+export { checkUniqueUserName, addPokemonToUser };
 // get pikachu details

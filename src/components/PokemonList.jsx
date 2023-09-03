@@ -13,8 +13,8 @@ import {
 import { useState, useContext } from "react";
 import { TrainersContext } from "../TrainersContext";
 
-import { FaPlus } from "react-icons/fa";
 import PokemonDetail from "./PokemonDetail";
+import AddPokemonForm from "./forms/AddPokemonForm";
 
 export default function PokemonList({ pokemons, trainerId }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,12 +55,7 @@ export default function PokemonList({ pokemons, trainerId }) {
           </>
         )}
 
-        {pokemons?.length < 6 && (
-          <Button size={"xs"}>
-            <FaPlus />
-            <Text ml={1}>Add Pokemon</Text>
-          </Button>
-        )}
+        {pokemons?.length < 6 && <AddPokemonForm trainerId={trainerId} />}
       </Flex>
       <PokemonDetail pokemons={pokemons} deletePokemon={deletePokemon} />
 

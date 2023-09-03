@@ -12,15 +12,16 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Button,
   Flex,
   Avatar,
+  Tag,
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
 
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import PokemonList from "./PokemonList";
+import EditUserForm from "./forms/EditUserForm";
 
 const TrainerInformation = ({ trainer }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -128,29 +129,24 @@ const TrainerInformation = ({ trainer }) => {
             >
               <b>Member Since</b>: {trainer.joined}
             </Text>
-            <Text
-              p={1}
-              as="b"
+            <Tag
+              p={2}
               marginTop="2"
-              color={useColorModeValue("white", "gray.200")}
-              fontSize="sm"
-              fontStyle={"bold"}
-              borderRadius={"md"}
+              display={"span"}
+              w={"40"}
               align={"center"}
-              background={
-                trainer.pokemons.length >= 3 ? "green.400" : "red.400"
-              }
+              color={useColorModeValue("white", "gray.200")}
+              fontSize="xx-small"
+              fontStyle={"bold"}
+              borderRadius={"full"}
+              background={trainer.pokemons.length >= 3 ? "green.400" : "red"}
             >
               {trainer.pokemons.length >= 3
                 ? "Eligible for Battle"
                 : "Not Eligible for Battle"}
-            </Text>
+            </Tag>
           </Box>
-          <Box marginTop="5">
-            <Button mx={1} size={"xs"} variant={"link"}>
-              Edit Profile
-            </Button>
-          </Box>
+          <EditUserForm trainer={trainer} />
         </Box>
 
         <Box
