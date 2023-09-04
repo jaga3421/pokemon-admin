@@ -79,7 +79,7 @@ export default function Tournament({ isOpen, onClose, trainers }) {
                     );
                   })}
                 </Grid>
-                <Text align={"center"} mt="5">
+                <Text align={"center"} my="5">
                   Battle is over.. And the winner is {winner.displayName}
                 </Text>
                 <Flex justify={"center"}>
@@ -99,7 +99,9 @@ export default function Tournament({ isOpen, onClose, trainers }) {
             </Box>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={onClose}>End Tournament</Button>
+            <Button onClick={onClose} colorScheme="red">
+              End Tournament
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
